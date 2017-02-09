@@ -44,13 +44,12 @@ var companySalesData = [
     sales: [ 500, 100 ]
   }
 ];
+
 //pass company sales in an array format
 function totalSales(companysSales) {
   var sum = 0;
   for (var i = 0; i < companysSales.length; i++) {
-    //console.log(companysSales[i]);
     sum += companysSales[i];
-    //console.log(sum);
   }
   return sum;
 }
@@ -60,11 +59,11 @@ function applicableTax(companysProvince) {
   return salesTaxRates[companysProvince];
 }
 
-
-//console.log(companysProvince);
-
 function calculateSalesTax (companySalesData, salesTaxRates){
+  var storedResult = {};
   for (var i = 0; i < companySalesData.length; i++) {
+    var companysName = companySalesData[i]['name'];
+
     var companysSales = companySalesData[i]['sales'];
     var salesTotal = totalSales(companysSales);
     //console.log(salesTotal);
@@ -73,18 +72,23 @@ function calculateSalesTax (companySalesData, salesTaxRates){
     //console.log(companysProvince);
     var salesTaxTotal = salesTotal * applicableTax(companysProvince);
 
-    companySalesData[i]['totalSales'] = salesTotal;
-    companySalesData[i]['totalTaxes'] = salesTaxTotal;
+    if (storedResult.hasOwnProperty(companysName)) {
+      storedResult[companysName]['totalSales'] += salesTotal;
+      storedResult[companysName]['totalTaxes'] += salesTaxTotal;
+    } else {
+      storedResult[companysName] = {};
+      storedResult[companysName]['totalSales'] = salesTotal;
+      storedResult[companysName]['totalTaxes'] = salesTaxTotal;
+    }
+
+
+    // companySalesData[i]['totalSales'] = salesTotal;
+    // companySalesData[i]['totalTaxes'] = salesTaxTotal;
   }
-  return companySalesData;
+
+  return storedResult;
 }
 
-//console.log(applicableTax(companySalesData[0]['province'], salesTaxRates));
-
-
-
-
-//console.log(companysSales);
 var results = calculateSalesTax(companySalesData, salesTaxRates);
 
 console.log(results);
