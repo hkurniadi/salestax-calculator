@@ -56,6 +56,7 @@ function totalSales(companysSales) {
 
 //pass company province as a value of company province key
 function applicableTax(companysProvince) {
+
   return salesTaxRates[companysProvince];
 }
 
@@ -66,10 +67,8 @@ function calculateSalesTax (companySalesData, salesTaxRates){
 
     var companysSales = companySalesData[i]['sales'];
     var salesTotal = totalSales(companysSales);
-    //console.log(salesTotal);
 
     var companysProvince = companySalesData[i]['province'];
-    //console.log(companysProvince);
     var salesTaxTotal = salesTotal * applicableTax(companysProvince);
 
     if (storedResult.hasOwnProperty(companysName)) {
@@ -80,11 +79,9 @@ function calculateSalesTax (companySalesData, salesTaxRates){
       storedResult[companysName]['totalSales'] = salesTotal;
       storedResult[companysName]['totalTaxes'] = salesTaxTotal;
     }
-    // companySalesData[i]['totalSales'] = salesTotal;
-    // companySalesData[i]['totalTaxes'] = salesTaxTotal;
   }
   return storedResult;
-}
+}//function calculateSales Taxes ends here
 
 var results = calculateSalesTax(companySalesData, salesTaxRates);
 
