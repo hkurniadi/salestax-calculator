@@ -80,12 +80,9 @@ function calculateSalesTax (companySalesData, salesTaxRates){
       storedResult[companysName]['totalSales'] = salesTotal;
       storedResult[companysName]['totalTaxes'] = salesTaxTotal;
     }
-
-
     // companySalesData[i]['totalSales'] = salesTotal;
     // companySalesData[i]['totalTaxes'] = salesTaxTotal;
   }
-
   return storedResult;
 }
 
